@@ -13,10 +13,7 @@ export const useDice = () => {
 
         setRollDice1(newRoll1);
         setRollDice2(newRoll2);
-
-        console.log(newRoll1);
-        console.log(newRoll2);
-
+        
         whoWin(newRoll1, newRoll2)
     }
 
@@ -52,20 +49,11 @@ export const useDice = () => {
         console.log("Fin...");
     }
 
-    // Función para manejar el clic en el botón "Empezar"
-    const startGame = () => {
-        setUnits1(20); 
-        setUnits2(20);
-    };
-
-
     return {
         units1,
         units2,
         rollDice1,
         rollDice2,
-        rollDice,
-        startGame
-
+        rollDice
     }
 }

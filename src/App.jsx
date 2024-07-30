@@ -1,29 +1,37 @@
 import Dice from './components/Dice';
+import { Button } from "@nextui-org/react";
 import { useDice } from './hooks/useDice.js'
 
+
 function App() {
-    const { rollDice1, rollDice2, units1, units2, rollDice, startGame } = useDice();
+    const { rollDice1, rollDice2, rollDice } = useDice();
 
 
     return (
-        <div className='flex flex-wrap items-center w-full h-screen p-4 gap-2'>
-            <h1 className='font-bold text-3xl'>Lanzador de Dados</h1>
+        <div className='p-5'>
 
-            <div className='bg-gray-200 w-full h-2/6'>
-                <Dice roll={rollDice1} units={units1} />
+            <h1 className='font-bold text-3xl m-5'>Dice Thrower</h1>
+
+            <div className='flex flex-col justify-center w-full p-5 gap-8'>
+
+                <Dice roll={rollDice1} />
+
+                <div className='bg-slate-200 flex justify-around items-center w-full p-5 gap-4 rounded-3xl'>
+                    <Button color="warning" variant="ghost" size="lg" className='text-lg md:text-xl md:font-semibold'>
+                        Start
+                    </Button>
+                    <Button color="danger" variant="ghost" size="lg" onClick={rollDice} className='text-lg md:text-xl md:font-semibold'>
+                        Attack
+                    </Button>
+                    <Button color="warning" variant="ghost" size="lg" className='text-lg md:text-xl md:font-semibold'>
+                        Reset
+                    </Button>
+                </div>
+
+                <Dice roll={rollDice2} />
+
             </div>
-
-            <div className='flex justify-around bg-gray-300 w-full h-40'>
-                <button onClick={startGame}> Empezar </button>
-                <button onClick={rollDice}> Atacar </button>
-                <button>Reset</button>
-            </div>
-
-            <div className='bg-gray-400 w-full h-2/6'>
-                <Dice roll={rollDice2} units={units2} />
-
-            </div>
-        </div>
+        </div >
     );
 }
 
