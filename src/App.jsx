@@ -16,14 +16,14 @@ function App() {
 
                 <Dice roll={rollDice1} />
 
-                <div className='bg-slate-200 flex justify-around items-center w-full p-5 gap-4 rounded-3xl'>
+                <div className='bg-slate-200 flex flex-wrap justify-around items-center w-full p-5 gap-4 rounded-3xl'>
                     <Button color="warning" variant="ghost" size="lg" className='text-lg md:text-xl md:font-semibold'>
                         Start
                     </Button>
                     <Button color="danger" variant="ghost" size="lg" onClick={rollDice} className='text-lg md:text-xl md:font-semibold'>
                         Attack
                     </Button>
-                    <Button color="warning" variant="ghost" size="lg" className='text-lg md:text-xl md:font-semibold'>
+                    <Button color="default" variant="ghost" size="lg" className='text-lg md:text-xl md:font-semibold'>
                         Reset
                     </Button>
                 </div>
