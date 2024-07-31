@@ -5,27 +5,40 @@ import { Button, Select, SelectItem } from "@nextui-org/react";
 import { useDice } from './hooks/useDice.js';
 
 function App() {
+    const {limit, units1, units2, rollDice1, rollDice2, rollDice, setUnits1, setUnits2 } = useDice();
+
+
     const [startClicked, setStartClicked] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const { units1, units2, rollDice1, rollDice2, rollDice, setUnits1, setUnits2 } = useDice();
-   
+    const [winner, setWinner] = useState("");
+
     const handleStart = () => {
         setStartClicked(true);
     };
 
     useEffect(() => {
-        if (units1 === 0 || units2 === 0) {
-            setShowModal(true)
-            console.log("in app " + showModal)
+        if (units1 === 0) {
+            setWinner("Player 2");
+            setShowModal(true);
+        } else if (units2 === 0) {
+            setWinner("Player 1");
+            setShowModal(true);
+        } if (units1 === 0 && units2 === 0) {
+            setWinner("Tie");
+            setShowModal(true);
         }
     }, [units1, units2]);
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
 
 
     return (
         <div className='p-5'>
             <h1 className='font-bold text-3xl m-5'>Dice Thrower</h1>
 
-            <ModalWin isOpen={showModal} />
+            <ModalWin isOpen={showModal} onClose={closeModal} winner={winner} />
 
             <div className='flex flex-col justify-center w-full p-5 gap-8'>
                 <div className='flex flex-col justify-center items-center w-full h-1/4 gap-8'>
@@ -37,7 +50,7 @@ function App() {
                             className="max-w-xs"
                             onChange={(e) => setUnits1(Number(e.target.value))} // Maneja el cambio de selección
                         >
-                            {Array.from({ length: 20 }, (_, index) => (
+                            {Array.from({ length: limit }, (_, index) => (
                                 <SelectItem key={index + 1} textValue={`${index + 1}`} value={index + 1}>
                                     {index + 1}
                                 </SelectItem>
@@ -73,7 +86,7 @@ function App() {
                             className="max-w-xs"
                             onChange={(e) => setUnits2(Number(e.target.value))} // Maneja el cambio de selección
                         >
-                            {Array.from({ length: 20 }, (_, index) => (
+                            {Array.from({ length: limit }, (_, index) => (
                                 <SelectItem key={index + 1} textValue={`${index + 1}`} value={index + 1}>
                                     {index + 1}
                                 </SelectItem>

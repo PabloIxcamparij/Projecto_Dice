@@ -29,21 +29,15 @@ export const useDice = () => {
         nDice2 = transform[nDice2] || nDice2;
 
         if (nDice1 > nDice2) {
-            console.log("Win Dice 1");
             setUnits2(units2 -1)
         } else if (nDice1 < nDice2) {
-            console.log("Win Dice 2");
             setUnits1(units1 -1)
         } else {
-            console.log("Tie");
             setUnits1(units1 -1)
             setUnits2(units2 -1)
         }
-
-        console.log(nDice1);
-        console.log(nDice2);
-        console.log("Fin...");
     }
+
 
     return {
         limit,
