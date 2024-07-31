@@ -5,33 +5,40 @@ import { Button, Select, SelectItem } from "@nextui-org/react";
 import { useDice } from './hooks/useDice.js';
 
 function App() {
-    const {limit, units1, units2, rollDice1, rollDice2, rollDice, setUnits1, setUnits2 } = useDice();
-
+    const {
+        limit,
+        units1,
+        units2,
+        rollDice1,
+        rollDice2,
+        rollDice,
+        setUnits1,
+        setUnits2,
+        showModal,
+        winner,
+        closeModal
+    } = useDice();
 
     const [startClicked, setStartClicked] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    const [winner, setWinner] = useState("");
+    const [selectedUnits1, setSelectedUnits1] = useState("");
+    const [selectedUnits2, setSelectedUnits2] = useState("");
 
     const handleStart = () => {
         setStartClicked(true);
     };
 
-    useEffect(() => {
-        if (units1 === 0) {
-            setWinner("Player 2");
-            setShowModal(true);
-        } else if (units2 === 0) {
-            setWinner("Player 1");
-            setShowModal(true);
-        } if (units1 === 0 && units2 === 0) {
-            setWinner("Tie");
-            setShowModal(true);
-        }
-    }, [units1, units2]);
-
-    const closeModal = () => {
-        setShowModal(false);
+    const handleReset = () => {
+        setStartClicked(false);
+        setUnits1(1);
+        setUnits2(1);
+        setSelectedUnits1("");
+        setSelectedUnits2("");
     };
+
+    const isStartDisabled = !selectedUnits1 || !selectedUnits2;
+    const isSelectDisabled = startClicked;
+    const isAttackDisabled = !startClicked;
+    const isResetDisabled = !startClicked;
 
 
     return (
@@ -48,7 +55,13 @@ function App() {
                             placeholder="Select a number"
                             labelPlacement="outside"
                             className="max-w-xs"
-                            onChange={(e) => setUnits1(Number(e.target.value))} // Maneja el cambio de selección
+                            value={selectedUnits1}
+                            onChange={(e) => {
+                                const value = Number(e.target.value);
+                                setSelectedUnits1(value);
+                                setUnits1(value);
+                            }}
+                            isDisabled={isSelectDisabled}
                         >
                             {Array.from({ length: limit }, (_, index) => (
                                 <SelectItem key={index + 1} textValue={`${index + 1}`} value={index + 1}>
@@ -62,17 +75,39 @@ function App() {
                 </div>
 
                 <div className='bg-slate-200 flex flex-wrap justify-center items-center w-full p-5 gap-4 rounded-3xl'>
+                    <h1 className='text-xl font-semibold w-full text-center'>
+                        Remaining Units: {startClicked ? `${units1} / ${units2}` : 'Select units'}
+                    </h1>
 
-                    <h1 className='text-xl font-semibold w-full text-center'>Remaining Units: {startClicked ? `${units1} / ${units2}` : 'Select units'}</h1>
-
-
-                    <Button color="warning" variant="ghost" size="lg" className='text-lg md:text-xl md:font-semibold' onClick={handleStart}>
+                    <Button
+                        color="warning"
+                        variant="ghost"
+                        size="lg"
+                        className='text-lg md:text-xl md:font-semibold'
+                        onClick={handleStart}
+                        isDisabled={isStartDisabled}
+                    >
                         Start
                     </Button>
-                    <Button color="danger" variant="ghost" size="lg" onClick={rollDice} className='text-lg md:text-xl md:font-semibold'>
+
+                    <Button
+                        color="danger"
+                        variant="ghost"
+                        size="lg"
+                        onClick={rollDice}
+                        className='text-lg md:text-xl md:font-semibold'
+                        isDisabled={isAttackDisabled}
+                    >
                         Attack
                     </Button>
-                    <Button color="default" variant="ghost" size="lg" className='text-lg md:text-xl md:font-semibold'>
+                    <Button
+                        color="default"
+                        variant="ghost"
+                        size="lg"
+                        onClick={handleReset}
+                        className='text-lg md:text-xl md:font-semibold'
+                        isDisabled={isResetDisabled}
+                    >
                         Reset
                     </Button>
                 </div>
@@ -84,7 +119,14 @@ function App() {
                             placeholder="Select a number"
                             labelPlacement="outside"
                             className="max-w-xs"
-                            onChange={(e) => setUnits2(Number(e.target.value))} // Maneja el cambio de selección
+                            value={selectedUnits2}
+                            onChange={(e) => {
+                                const value = Number(e.target.value);
+                                setSelectedUnits2(value);
+                                setUnits2(value);
+                            }}
+                            isDisabled={isSelectDisabled}
+
                         >
                             {Array.from({ length: limit }, (_, index) => (
                                 <SelectItem key={index + 1} textValue={`${index + 1}`} value={index + 1}>
@@ -92,7 +134,6 @@ function App() {
                                 </SelectItem>
                             ))}
                         </Select>
-
                     </div>
 
                     <Dice roll={rollDice2} />
