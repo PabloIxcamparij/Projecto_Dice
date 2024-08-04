@@ -16,6 +16,8 @@ export const useDice = () => {
 
     const [winner, setWinner] = useState("")
     const [winnerColor, setWinnerColor] = useState("")
+    const [winnerUnits, setWinnerUnits] = useState(0)
+
 
     const [showModal, setShowModal] = useState(false)
     const [startClicked, setStartClicked] = useState(false)
@@ -64,22 +66,27 @@ export const useDice = () => {
     useEffect(() => {
         if (units1 === 0 && units2 === 0) {
             setWinner("Tie");
+            setWinnerUnits(0)
             setWinnerColor("#000000")
             setShowModal(true);
+
             handleReset()
-            
+        
         } else if (units1 === 0) {
-            setWinner(`Player 2`);
+            setWinner(`Player 2`)
             setWinnerColor(color2)
+            setWinnerUnits(units2)
             setShowModal(true);
+
             handleReset()
 
         } else if (units2 === 0) {
             setWinner(`Player 1`);
             setWinnerColor(color1)
+            setWinnerUnits(units1)
             setShowModal(true);
-            handleReset()
 
+            handleReset()
         }
     }, [units1, units2]);
 
@@ -109,6 +116,7 @@ export const useDice = () => {
         showModal,
         winner,
         winnerColor,
+        winnerUnits,
         setUnits1,
         setUnits2,
         setRollDice1,

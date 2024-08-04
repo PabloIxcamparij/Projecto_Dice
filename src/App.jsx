@@ -16,6 +16,7 @@ function App() {
         showModal,
         winner,
         winnerColor,
+        winnerUnits,
         closeModal,
         startClicked,
         handleStart,
@@ -39,7 +40,7 @@ function App() {
     return (
         <div className='p-5'>
 
-            <ModalWin isOpen={showModal} onClose={closeModal} winner={winner} winnerColor={winnerColor} />
+            <ModalWin isOpen={showModal} onClose={closeModal} winner={winner} winnerColor={winnerColor} winnerUnits={winnerUnits} />
 
             <div className='flex flex-col justify-center w-full p-5 gap-8'>
                 <h1 className='text-lg font-bold'> Dice thrower</h1>
