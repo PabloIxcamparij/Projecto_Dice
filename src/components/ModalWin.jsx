@@ -5,14 +5,14 @@ export default function ModalWin({ isOpen, onClose, winner, winnerColor }) {
 
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onClose}>
+    <Modal className="w-4/5" isOpen={isOpen} onOpenChange={onClose} placement="center">
       
       <ModalContent>
 
         <ModalHeader className="flex flex-col gap-1">The winer is</ModalHeader>
         
-        <ModalBody>
-        <p className="text-lg" style={{ color: winnerColor }}>{winner}</p>
+        <ModalBody className="flex items-center">
+        <p className="text-2xl font-bold mb-5" style={{ color: winnerColor }}>{winner}</p>
         </ModalBody>
 
       </ModalContent>

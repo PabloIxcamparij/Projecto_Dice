@@ -42,6 +42,7 @@ function App() {
             <ModalWin isOpen={showModal} onClose={closeModal} winner={winner} winnerColor={winnerColor} />
 
             <div className='flex flex-col justify-center w-full p-5 gap-8'>
+                <h1 className='text-lg font-bold'> Dice thrower</h1>
                 
                 {/* Dice 1 */}
                 <div className='flex flex-col justify-center items-center w-full h-1/4 gap-8'>
@@ -96,7 +97,7 @@ function App() {
                         color="warning"
                         variant="ghost"
                         size="lg"
-                        className='text-lg md:text-xl md:font-semibold'
+                        className='text-lg md:text-xl font-bold'
                         onClick={handleStart}
                         isDisabled={isStartDisabled}
                     >
@@ -108,7 +109,7 @@ function App() {
                         variant="ghost"
                         size="lg"
                         onClick={rollDice}
-                        className='text-lg md:text-xl md:font-semibold'
+                        className='text-lg md:text-xl font-bold'
                         isDisabled={isAttackDisabled}
                     >
                         Attack
@@ -118,7 +119,7 @@ function App() {
                         variant="ghost"
                         size="lg"
                         onClick={handleReset}
-                        className='text-lg md:text-xl md:font-semibold'
+                        className='text-lg md:text-xl font-bold'
                         isDisabled={isResetDisabled}
                     >
                         Reset
