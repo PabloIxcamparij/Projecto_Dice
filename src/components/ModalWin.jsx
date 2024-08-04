@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 
-export default function ModalWin({ isOpen, onClose, winner }) {
+export default function ModalWin({ isOpen, onClose, winner, winnerColor }) {
 
 
   return (
@@ -12,8 +12,7 @@ export default function ModalWin({ isOpen, onClose, winner }) {
         <ModalHeader className="flex flex-col gap-1">The winer is</ModalHeader>
         
         <ModalBody>
-        <p>{winner}</p>
-
+        <p className="text-lg" style={{ color: winnerColor }}>{winner}</p>
         </ModalBody>
 
       </ModalContent>

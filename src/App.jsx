@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import Dice from './components/Dice';
 import ModalWin from './components/ModalWin.jsx';
 import { Button, Select, SelectItem } from "@nextui-org/react";
@@ -16,38 +15,36 @@ function App() {
         setUnits2,
         showModal,
         winner,
-        closeModal
+        winnerColor,
+        closeModal,
+        startClicked,
+        handleStart,
+        handleReset,
+        selectedUnits1,
+        setSelectedUnits1,
+        selectedUnits2,
+        setSelectedUnits2,
+        color1,
+        setColor1,
+        color2,
+        setColor2,
+        colors
     } = useDice();
-
-    const [startClicked, setStartClicked] = useState(false);
-    const [selectedUnits1, setSelectedUnits1] = useState("");
-    const [selectedUnits2, setSelectedUnits2] = useState("");
-
-    const handleStart = () => {
-        setStartClicked(true);
-    };
-
-    const handleReset = () => {
-        setStartClicked(false);
-        setUnits1(1);
-        setUnits2(1);
-        setSelectedUnits1("");
-        setSelectedUnits2("");
-    };
 
     const isStartDisabled = !selectedUnits1 || !selectedUnits2;
     const isSelectDisabled = startClicked;
     const isAttackDisabled = !startClicked;
     const isResetDisabled = !startClicked;
 
-
     return (
         <div className='p-5'>
             <h1 className='font-bold text-3xl m-5'>Dice Thrower</h1>
 
-            <ModalWin isOpen={showModal} onClose={closeModal} winner={winner} />
+            <ModalWin isOpen={showModal} onClose={closeModal} winner={winner} winnerColor={winnerColor} />
 
             <div className='flex flex-col justify-center w-full p-5 gap-8'>
+                
+                {/* Dice 1 */}
                 <div className='flex flex-col justify-center items-center w-full h-1/4 gap-8'>
                     <div className='flex flex-col md:flex-row justify-around w-full gap-8'>
                         <Select
@@ -69,11 +66,28 @@ function App() {
                                 </SelectItem>
                             ))}
                         </Select>
+
+                        <Select
+                            label="Select Color"
+                            placeholder="Select a color"
+                            labelPlacement="outside"
+                            className="max-w-xs"
+                            value={color1}
+                            onChange={(e) => setColor1(e.target.value)}
+                            isDisabled={isSelectDisabled}
+                        >
+                            {colors.map((color) => (
+                                <SelectItem key={color.value} textValue={color.name} value={color.value}>
+                                    {color.name}
+                                </SelectItem>
+                            ))}
+                        </Select>
                     </div>
 
-                    <Dice roll={rollDice1} />
+                    <Dice roll={rollDice1} color={color1} />
                 </div>
 
+                {/* Container buttons */}
                 <div className='bg-slate-200 flex flex-wrap justify-center items-center w-full p-5 gap-4 rounded-3xl'>
                     <h1 className='text-xl font-semibold w-full text-center'>
                         Remaining Units: {startClicked ? `${units1} / ${units2}` : 'Select units'}
@@ -112,6 +126,7 @@ function App() {
                     </Button>
                 </div>
 
+                {/* Dice 2 */}
                 <div className='flex flex-col justify-center items-center w-full h-1/4 gap-8'>
                     <div className='flex flex-col md:flex-row justify-around w-full gap-8'>
                         <Select
@@ -126,7 +141,6 @@ function App() {
                                 setUnits2(value);
                             }}
                             isDisabled={isSelectDisabled}
-
                         >
                             {Array.from({ length: limit }, (_, index) => (
                                 <SelectItem key={index + 1} textValue={`${index + 1}`} value={index + 1}>
@@ -134,9 +148,25 @@ function App() {
                                 </SelectItem>
                             ))}
                         </Select>
+
+                        <Select
+                            label="Select Color"
+                            placeholder="Select a color"
+                            labelPlacement="outside"
+                            className="max-w-xs"
+                            value={color2}
+                            onChange={(e) => setColor2(e.target.value)}
+                            isDisabled={isSelectDisabled}
+                        >
+                            {colors.map((color) => (
+                                <SelectItem key={color.value} textValue={color.name} value={color.value}>
+                                    {color.name}
+                                </SelectItem>
+                            ))}
+                        </Select>
                     </div>
 
-                    <Dice roll={rollDice2} />
+                    <Dice roll={rollDice2} color={color2} />
                 </div>
             </div>
         </div>

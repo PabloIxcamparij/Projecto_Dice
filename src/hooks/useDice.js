@@ -2,12 +2,31 @@ import { useState, useEffect } from "react";
 
 export const useDice = () => {
     const limit = 35;
-    const [units1, setUnits1] = useState(1); 
-    const [units2, setUnits2] = useState(1);
-    const [rollDice1, setRollDice1] = useState(1);
-    const [rollDice2, setRollDice2] = useState(1);
-    const [showModal, setShowModal] = useState(false);
-    const [winner, setWinner] = useState("");
+    const [units1, setUnits1] = useState(1)
+    const [units2, setUnits2] = useState(1)
+
+    const [color1, setColor1] = useState("#F31260")
+    const [color2, setColor2] = useState("#002E62")
+
+    const [selectedUnits1, setSelectedUnits1] = useState("")
+    const [selectedUnits2, setSelectedUnits2] = useState("")
+
+    const [rollDice1, setRollDice1] = useState(1)
+    const [rollDice2, setRollDice2] = useState(1)
+
+    const [winner, setWinner] = useState("")
+    const [winnerColor, setWinnerColor] = useState("#FAFAFA")
+
+    const [showModal, setShowModal] = useState(false)
+    const [startClicked, setStartClicked] = useState(false)
+
+    const colors = [
+        { name: "Blue", value: "#002E62" },
+        { name: "Red", value: "#F31260" },
+        { name: "Green", value: "#0E793C" },
+        { name: "Yellow", value: "#F5A524" },
+        { name: "Black", value: "#18181B" }
+    ]
 
     const rollDice = () => {
         const newRoll1 = Math.floor(Math.random() * 6) + 1;
@@ -20,6 +39,7 @@ export const useDice = () => {
     }
 
     const whoWin = (nDice1, nDice2) => {
+
         const transform = {
             3: 6,
             6: 3,
@@ -38,6 +58,7 @@ export const useDice = () => {
             setUnits1(prev => prev - 1);
             setUnits2(prev => prev - 1);
         }
+
     }
 
     useEffect(() => {
@@ -45,17 +66,31 @@ export const useDice = () => {
             setWinner("Tie");
             setShowModal(true);
         } else if (units1 === 0) {
-            setWinner("Player 2");
+            setWinner(`Player 2`);
+            setWinnerColor(color2)
             setShowModal(true);
         } else if (units2 === 0) {
-            setWinner("Player 1");
+            setWinner(`Player 1`);
+            setWinnerColor(color1)
             setShowModal(true);
         }
     }, [units1, units2]);
 
+    const handleStart = () => {
+        setStartClicked(true);
+    }
+
+    const handleReset = () => {
+        setStartClicked(false);
+        setUnits1(1);
+        setUnits2(1);
+        setSelectedUnits1("");
+        setSelectedUnits2("");
+    }
+
     const closeModal = () => {
         setShowModal(false);
-    };
+    }
 
     return {
         limit,
@@ -66,10 +101,23 @@ export const useDice = () => {
         rollDice,
         showModal,
         winner,
+        winnerColor,
         setUnits1,
         setUnits2,
         setRollDice1,
         setRollDice2,
-        closeModal
+        closeModal,
+        startClicked,
+        handleStart,
+        handleReset,
+        selectedUnits1,
+        setSelectedUnits1,
+        selectedUnits2,
+        setSelectedUnits2,
+        color1,
+        setColor1,
+        color2,
+        setColor2,
+        colors
     };
 }
