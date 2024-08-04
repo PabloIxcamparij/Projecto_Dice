@@ -38,7 +38,6 @@ function App() {
 
     return (
         <div className='p-5'>
-            <h1 className='font-bold text-3xl m-5'>Dice Thrower</h1>
 
             <ModalWin isOpen={showModal} onClose={closeModal} winner={winner} winnerColor={winnerColor} />
 
@@ -46,10 +45,10 @@ function App() {
                 
                 {/* Dice 1 */}
                 <div className='flex flex-col justify-center items-center w-full h-1/4 gap-8'>
-                    <div className='flex flex-col md:flex-row justify-around w-full gap-8'>
+                    <div className='flex justify-around w-full gap-8'>
                         <Select
-                            label="Number of units"
-                            placeholder="Select a number"
+                            label="Select units"
+                            placeholder="Select"
                             labelPlacement="outside"
                             className="max-w-xs"
                             value={selectedUnits1}
@@ -69,7 +68,7 @@ function App() {
 
                         <Select
                             label="Select Color"
-                            placeholder="Select a color"
+                            placeholder="Select"
                             labelPlacement="outside"
                             className="max-w-xs"
                             value={color1}
@@ -128,10 +127,10 @@ function App() {
 
                 {/* Dice 2 */}
                 <div className='flex flex-col justify-center items-center w-full h-1/4 gap-8'>
-                    <div className='flex flex-col md:flex-row justify-around w-full gap-8'>
+                    <div className='flex justify-around w-full gap-8'>
                         <Select
-                            label="Number of units"
-                            placeholder="Select a number"
+                            label="Select units"
+                            placeholder="Select"
                             labelPlacement="outside"
                             className="max-w-xs"
                             value={selectedUnits2}
@@ -151,7 +150,7 @@ function App() {
 
                         <Select
                             label="Select Color"
-                            placeholder="Select a color"
+                            placeholder="Select"
                             labelPlacement="outside"
                             className="max-w-xs"
                             value={color2}
